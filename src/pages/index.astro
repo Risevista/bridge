@@ -1,281 +1,84 @@
 ---
-// Astro Frontmatter
-import Image from '../components/Image.astro';
-import Layout from '../layouts/Layout.astro';
-import Service1 from '../assets/img/service1.jpg';
-import Service2 from '../assets/img/service2.jpg';
-import Service3 from '../assets/img/service3.jpg';
-import HeaderLogo from '../assets/img/risevista-logo.png';
+// ============ Frontmatter ============
+import Layout from "../layouts/Layout.astro";
+import Hero from "../components/hero.astro";
+import Image from "../components/Image.astro";
 
+// Assets
+import HeaderLogo from "../assets/img/bridge-logo.avif";
+import CompanyImage from "../assets/img/service1.jpg"; // 適宜差し替え
+
+// Text (一箇所に集約)
+const COPY = {
+  eyebrowJa: "企業情報",
+  eyebrowEn: "Our Company",
+  head1: "圧倒的な「安心」をあなたに",
+  head2: "個人・法人の総合保険代理店",
+  body1:
+    "保険に関する疑問・課題を解決し、お客様に安心をお届けします。",
+  body2: "企業・個人のお客さまへあらゆる保険ソリューションをご提供します。",
+};
 ---
 
-<Layout title="株式会社RISE VISTA">
- <!-- Hero Section -->
- <section class="relative bg-[#0a1533] text-white min-h-[100dvh] flex items-center overflow-hidden">
-  <!-- 背景画像 -->
-  <Image
-    src={Service2}
-    alt="背景画像"
-    class="absolute inset-0 w-full h-full object-cover z-0 opacity-40 pointer-events-none"
-    loading="lazy"
-    decoding="async"
-    aria-hidden="true"
-  />
-
-  <!-- 左側の白背景エリア（白ボックスより少し広く） -->
-  <div class="absolute top-0 left-0 h-full w-[20%] bg-white z-0 hidden md:block"></div>
-
-  <!-- SCROLLバー -->
-  <div class="absolute left-0 bottom-0 sm:top-0 h-[100px] sm:h-full w-[40px] bg-black z-50 sm:flex hidden flex-col items-center justify-end pb-10">
-    <p class="text-white tracking-widest writing-vertical mb-4 text-[8px] md:text-sm">SCROLL</p>
-    <div class="relative overflow-visible h-[60px]">
-      <div class="absolute bottom-0 w-[1px] h-[60px] bg-white animate-rise-fade opacity-60"></div>
-    </div>
-  </div>
-
-
-  <!-- メイン Hero -->
-  <div class="flex flex-col md:flex-row w-full max-w-7xl mx-auto md:px-10 relative z-10">
-    <!-- 右のテキスト（スマホで上に来るよう順序変更） -->
-    <div class="order-1 md:order-2 flex-1 md:pl-20 flex flex-col justify-center mb-8 md:mb-0">
-      <h2 class="text-base md:text-4xl font-bold leading-tight w-full text-center">
-        人生１００年時代を支える<br />
-        あなたのパートナーに。
-      </h2>
-    </div>
-    <!-- 左の白いボックス -->
-    <div class="order-2 md:order-1 bg-gray-200 text-black p-6 md:p-10 w-full md:w-1/2 z-20 opacity-90">
-      <h2 class="text-base md:text-3xl font-bold mt-4 leading-snug">
-        日本に健全な投資文化を育み <br />
-        <span class="text-primary">豊かさ</span>と<span class="text-primary">成長</span></span>を<br />
-        次世代へ
-      </h2>
-      <p class="mt-6 text-sm text-gray-700 leading-relaxed">
-        私たちは、「不動産」という枠組みを超えて、未来を創る力になりたいと考えています。
-        一人ひとりの暮らしから、地域、そして日本の未来を変えていく。  
-      </p>
-      <a href="/service">
-        <button class="mt-6 px-6 py-3 bg-primary text-white rounded-full hover:bg-primary/80 transition font-bold">
-          不動産売買・仲介・投資について
-        </button>
-      </a>
-    </div>
-  </div>
-</section>
-
+<Layout title="株式会社Bridge">
+  <!-- 重要な画像のプリロード -->
+  <link rel="preload" as="image" href={HeaderLogo.src} />
+  <link rel="preload" as="image" href={CompanyImage.src} />
   
-  <!-- MISSION Section -->
-  <section class="mission-section w-full flex justify-center items-center min-h-screen py-24 bg-[#f4f7fb] text-gray-700">
-    <div class="w-full max-w-6xl flex flex-col md:flex-row items-center gap-8 px-4">
-      <!-- 左カラム：テキスト -->
-      <div class="flex-1 flex flex-col items-start justify-center mb-8 md:mb-0">
-        <h2 class="text-2xl font-extrabold tracking-widest mb-6">一人ひとりの力を信じ、<br/>革新と創造を通じて<br/>人生１００年時代を支えるパートナーに</h2>
-        <p class="text-base leading-relaxed mb-0">
-          人生１００年時代を迎え、将来に向けた資産形成や運用の重要性はこれまで以上に高まっています。かつての「貯蓄から投資へ」という流れは、今や個人のライフスタイルに合わせた柔軟で多様な資産運用へと進化しています。私たちは、一人ひとりが自分らしい未来を描けるよう、革新と創造を通じて人生１００年時代を支えるパートナーになります。
-        </p>
-      </div>
-      <div class="flex-1 flex justify-center items-center">
-        <div class="w-72 h-72 rounded-full bg-[#181c2a] shadow-xl relative overflow-hidden">
-          <video
-            src="/logo.mp4"
-            autoplay
-            muted
-            loop
-            playsinline
-            class="absolute inset-0 w-full h-full object-scale-down pointer-events-none"
-            preload="auto"
-          ></video>
+  <!-- 画像の遅延読み込み用のスタイル -->
+  <style>
+    .lazy-image {
+      opacity: 0;
+      transition: opacity 0.3s ease-in-out;
+    }
+    .lazy-image.loaded {
+      opacity: 1;
+    }
+  </style>
+
+  <!-- =================== HERO =================== -->
+  <Hero />
+
+  <!-- =================== COMPANY SPLIT（出現アニメつき） =================== -->
+  <section class="bg-[#F6F6F6]">
+    <div class="max-w-7xl mx-auto px-6 md:px-8 lg:px-10 py-14 md:py-20">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-center">
+        <!-- LEFT : TEXT -->
+        <div class="lg:col-span-6 xl:col-span-6 space-y-8">
+          <div class="js-inview-fadeIn opacity-0" data-ani-delay="0s">
+            <div class="flex items-center gap-4 text-[#0E0E0E]">
+              <span class="text-[1.25rem] font-semibold">{COPY.eyebrowJa}</span>
+              <span class="h-[1px] w-8 bg-primary inline-block"></span>
+              <span class="text-[1.1rem] text-neutral-500">{COPY.eyebrowEn}</span>
+            </div>
+          </div>
+
+          <h2 class="js-inview-fadeIn opacity-0 leading-tight font-bold text-[7.2vw] md:text-[2vw] text-[#111]" data-ani-delay=".05s">{COPY.head1}</h2>
+          <h3 class="js-inview-fadeIn opacity-0 leading-tight font-bold text-[7.8vw] md:text-[2vw] text-primary" data-ani-delay=".12s">{COPY.head2}</h3>
+
+          <div class="space-y-4 max-w-2xl">
+            <p class="js-inview-fadeIn opacity-0 text-neutral-700" data-ani-delay=".22s">{COPY.body1}</p>
+            <p class="js-inview-fadeIn opacity-0  text-neutral-700" data-ani-delay=".32s">{COPY.body2}</p>
+          </div>
         </div>
-      </div>
-      
-      <!-- 右カラム：ボタン -->
-      <div class="flex-1 flex justify-center items-center">
-        <a href="/mission">
-          <button type="button" class="text-white bg-gradient-to-r from-green-400 via-green-500 to-green-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-green-300 dark:focus:ring-green-800 shadow-lg shadow-green-500/50 dark:shadow-lg dark:shadow-green-800/80 font-medium rounded-lg text-sm px-8 py-4 text-center">
-            OUR MISSION
-            <span class="ml-2 inline-block align-middle">→</span>
-          </button>
-        </a>
+
+        <!-- RIGHT : IMAGE -->
+        <div class="lg:col-span-6 xl:col-span-6 js-inview-fadeIn opacity-0" data-ani-delay=".18s">
+          <figure class="rounded-3xl overflow-hidden shadow-xl">
+            <Image 
+              src={CompanyImage} 
+              alt="Our Company" 
+              class="w-full h-[46vh] md:h-[54vh] lg:h-[62vh] object-cover lazy-image"
+            />
+          </figure>
+        </div>
       </div>
     </div>
   </section>
 
- <!-- VALUES セクション -->
- <section class="w-full flex flex-col items-center bg-[#f4f7fb] text-primary  py-12 md:py-24 px-4 md:px-0">
-  <div class="w-full max-w-6xl flex flex-col md:flex-row gap-8">
-    <!-- Left Title -->
-    <div class="mb-8 md:mb-12">
-      <div class="flex items-center mb-1">
-        <div class="black-bar mr-4"></div>
-        <p class="text-sm text-gray-500 tracking-wider font-serif">４つの行動指針</p>
-      </div>
-      <h2 class="text-4xl md:text-6xl font-bold tracking-widest font-inter">VALUES</h2>
-    </div>
-    <!-- Right Content -->
-    <div class="flex-1 flex flex-col gap-8 md:gap-12">
-      <!-- Row 1 -->
-      <div class="flex flex-col md:flex-row items-stretch border-t border-gray-300 pt-6 md:pt-8 pb-6 md:pb-8">
-        <div class="w-full md:w-12 flex items-center justify-center mb-4 md:mb-0">
-          <span class="text-xs tracking-widest transform md:-rotate-90 whitespace-nowrap font-serif">Honest</span>
-        </div>
-        <div class="flex-1 flex items-center justify-center mb-4 md:mb-0">
-          <h3 class="text-2xl md:text-4xl font-serif font-normal leading-tight text-center">学びの姿勢</h3>
-        </div>
-        <div class="w-full md:w-1/3 flex flex-col justify-between md:pl-8">
-          <p class="text-sm mb-4 md:mb-6 font-serif">私たちは、成長できる「環境」にこだわります。
-            常に学び続け、お互いを高めあうことで
-            お客様に最高のパフォーマンスを提供し続けます。
-            成長意欲を持ち、学びぬくプロフェッショナル集団であり続けます。
-            </p>
-          <div class="w-full text-center text-[#184C3A] font-semibold group font-serif">
-              「明日の自分を超える」
-          </div>
-        </div>
-      </div>
-      <!-- Row 2 -->
-      <div class="flex flex-col md:flex-row items-stretch border-t border-gray-300 pt-6 md:pt-8 pb-6 md:pb-8">
-        <div class="w-full md:w-12 flex items-center justify-center mb-4 md:mb-0">
-          <span class="text-xs tracking-widest transform md:-rotate-90 whitespace-nowrap font-serif">Trust</span>
-        </div>
-        <div class="flex-1 flex items-center justify-center mb-4 md:mb-0">
-          <h3 class="text-2xl md:text-4xl font-serif font-normal leading-tight text-center">信頼できる人柄</h3>
-        </div>
-        <div class="w-full md:w-1/3 flex flex-col justify-between md:pl-8">
-          <p class="text-sm mb-4 md:mb-6 font-serif">素直な姿勢を謙虚な心を持ち、明るく前向きな行動で
-            周囲に笑顔と安心を届ける。
-            人として信頼される魅力を持つ人材を育て、
-            ともに成長します。              
-            </p>  
-          <div class="w-full text-center text-[#184C3A] font-semibold group font-serif">
-              「素直に 謙虚に 前向きに」
-          </div>
-        </div>
-      </div>
-      <!-- Row 3 -->
-      <div class="flex flex-col md:flex-row items-stretch border-t border-gray-300 pt-6 md:pt-8 pb-6 md:pb-8">
-        <div class="w-full md:w-12 flex items-center justify-center mb-4 md:mb-0">
-          <span class="text-xs tracking-widest transform md:-rotate-90 whitespace-nowrap font-serif">Speed</span>
-        </div>
-        <div class="flex-1 flex items-center justify-center mb-4 md:mb-0">
-          <h3 class="text-2xl md:text-4xl font-serif font-normal leading-tight text-center">迅速な対応力</h3>
-        </div>
-        <div class="w-full md:w-1/3 flex flex-col justify-between md:pl-8">
-          <p class="text-sm mb-4 md:mb-6 font-serif">即時対応・即時行動・即時改善こそが
-            プロフェッショナルの使命。
-            相手の気持ちや思いを汲み取り、信頼関係を築く。
-            迅速かつ的確な行動で答えづける集団であり続けます。
-            </p>
-          <div class="w-full text-center text-[#184C3A] font-semibold group font-serif">
-              「すぐ動く すぐ応える すぐ改善する」
-            </div>
-        </div>
-      </div>
-      <!-- Row 4 -->
-      <div class="flex flex-col md:flex-row items-stretch border-t border-b border-gray-300 pt-6 md:pt-8 pb-6 md:pb-8">
-        <div class="w-full md:w-12 flex items-center justify-center mb-4 md:mb-0">
-          <span class="text-xs tracking-widest transform md:-rotate-90 whitespace-nowrap font-serif">Growth</span>
-        </div>
-        <div class="flex-1 flex items-center justify-center mb-4 md:mb-0">
-          <h3 class="text-2xl md:text-4xl font-serif font-normal leading-tight text-center">持続的な成長</h3>
-        </div>
-        <div class="w-full md:w-1/3 flex flex-col justify-between md:pl-8">
-          <p class="text-sm mb-4 md:mb-6 font-serif">変化を恐れず、常に新しいことに挑戦し続ける。
-            失敗を恐れず、そこから学び、成長する。
-            持続的な成長を通じて、お客様と社会に価値を提供し続けます。
-            </p>
-          <div class="w-full text-center text-[#184C3A] font-semibold group font-serif">
-              「挑戦し続ける 成長し続ける」
-            </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-  <section class="bg-white py-24 " id="service">
-    <div class="max-w-6xl mx-auto px-4">
-      <!-- タイトル部分 -->
-      <div class="mb-12">
-        <div class="flex items-center mb-1">
-          <div class="black-bar mr-4"></div>
-          <p class="text-sm text-gray-500 tracking-wider">事業内容</p>
-        </div>
-        <h2 class="text-6xl font-bold tracking-widest font-inter text-primary">SERVICE</h2>
-      </div>
-      <div class="grid md:grid-cols-3 gap-12">
-      <!-- Service 01 -->
-      <div class="space-y-4">
-        <!-- ラベル -->
-        <div class="border-t border-black pt-4 text-xs tracking-wide text-gray-500 font-inter">
-          SERVICE <span class="text-green-900">#01</span>
-        </div>
-        <Image
-        src={Service1}
-        alt="Circus"
-        class="w-[320px] h-[240px] object-cover brightness-130"
-        loading="lazy"
-        decoding="async"
-      />
-        <!-- タイトル -->
-        <h3 class="text-lg font-bold leading-relaxed">
-          賃貸仲介
-        </h3>
-        <!-- 本文 -->
-        <p class="text-sm text-gray-700 leading-relaxed">
-          物件を貸し出したい貸主様と物件を借りたい借主様をおつなぎいたします。</p>
-      </div>
-  
-      <!-- Service 02 -->
-      <div class="space-y-4">
-        <div class="border-t border-black pt-4 text-xs tracking-wide text-gray-500 font-inter">
-          SERVICE <span class="text-green-900 font-inter">#02</span>
-        </div>
-        <Image
-        src={Service2}
-        alt="Circus"
-        class="w-[320px] h-[240px] object-cover brightness-130"
-        loading="lazy"
-        decoding="async"
-      />
-        <h3 class="text-lg font-bold leading-relaxed">
-          売買仲介
-        </h3>
-        <p class="text-sm text-gray-700 leading-relaxed">
-          不動産を売却したい方、購入したい方の間に立ち、手続きや契約をサポートいたします。
-        </p>
-      </div>
-  
-      <!-- Service 03 -->
-      <div class="space-y-4">
-        <div class="border-t border-black pt-4 text-xs tracking-wide text-gray-500 font-inter">
-          SERVICE <span class="text-green-900 font-inter">#03</span>
-        </div>
-        <Image
-        src={Service3}
-        alt="Circus"
-        class="w-[320px] h-[240px] object-cover brightness-130"
-        loading="lazy"
-        decoding="async"
-      />
-        <h3 class="text-lg font-bold leading-relaxed">
-          不動産投資
-        </h3>
-        <p class="text-sm text-gray-700 leading-relaxed">
-          投資用不動産の売買、運用サポートなど長期にわたってお付き合いいたします。
-        </p>
-      </div>
-    </div>
-    <div class="flex justify-center mt-6">
-      <a href="/service" class="text-white bg-gradient-to-r from-green-400 via-green-500 to-green-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-green-300 dark:focus:ring-green-800 shadow-lg shadow-green-500/50 dark:shadow-lg dark:shadow-green-800/80 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2">
-        詳しくみる
-      </a>
-    </div>
-  </section>
-  
-
+  <!-- =================== COMPANY =================== -->
   <section class="py-24 bg-white" id="company">
     <div class="max-w-6xl mx-auto px-4">
-      <!-- タイトル部分 -->
       <div class="mb-12">
         <div class="flex items-center mb-1">
           <div class="black-bar mr-4"></div>
@@ -284,39 +87,41 @@ import HeaderLogo from '../assets/img/risevista-logo.png';
         <h2 class="text-6xl font-bold tracking-widest font-inter text-primary">COMPANY</h2>
       </div>
 
-      <!-- 本文2カラム -->
       <div class="flex flex-col md:flex-row gap-8 items-start">
         <!-- 左：ロゴ -->
         <div class="md:w-1/3 w-full flex justify-center items-start">
-          <Image src={HeaderLogo} alt="RISE VISTA ロゴ" class="w-full max-w-xs mx-auto" />
+          <Image 
+            src={HeaderLogo} 
+            alt="Bridge ロゴ" 
+            class="h-24 w-auto mx-auto" 
+          />
         </div>
 
-        <!-- 右：リスト（2カラム） -->
+        <!-- 右：リスト -->
         <div class="md:w-2/3 w-full">
           <dl class="divide-y divide-gray-300">
             <div class="flex flex-col md:flex-row py-3">
               <dt class="md:w-[35%] w-full text-gray-700">会社名</dt>
-              <dd class="md:w-[65%] w-full text-gray-700">株式会社RISE VISTA</dd>
+              <dd class="md:w-[65%] w-full text-gray-700">株式会社Bridge</dd>
             </div>
-            <div class="flex flex-col md:flex-row py-3">
-              <dt class="md:w-[35%] w-full text-gray-700">代表取締役</dt>
-              <dd class="md:w-[65%] w-full text-gray-700">土屋 健二</dd>
-            </div>
-            <div class="flex flex-col md:flex-row py-3">
-              <dt class="md:w-[35%] w-full text-gray-700">設立</dt>
-              <dd class="md:w-[65%] w-full text-gray-700">2025年7月16日</dd>
+            <div class="flex flex-wrap py-3">
+              <dt class="w-full md:w-[35%] text-gray-700">CEO</dt>
+              <dd class="w-full md:w-[65%] text-gray-700">土屋 健二</dd>
+              <!-- ここは dt -->
+              <dt class="w-full md:w-[35%] text-gray-700">代表取締役</dt>
+              <dd class="w-full md:w-[65%] text-gray-700">稲葉 あゆみ</dd>
             </div>
             <div class="flex flex-col md:flex-row py-3">
               <dt class="md:w-[35%] w-full text-gray-700">所在地</dt>
-              <dd class="md:w-[65%] w-full text-gray-700">東京都渋谷区渋谷1-1-8 青山ダイヤモンドビル7階</dd>
-            </div> 
+              <dd class="md:w-[65%] w-full text-gray-700">東京都港区三田3-4-17 藤和三田コープⅡ203</dd>
+            </div>
             <div class="flex flex-col md:flex-row py-3">
               <dt class="md:w-[35%] w-full text-gray-700">電話番号</dt>
-              <dd class="md:w-[65%] w-full text-gray-700">0120-20-8000</dd>
+              <dd class="md:w-[65%] w-full text-gray-700">03-6435-4592</dd>
             </div>
             <div class="flex flex-col md:flex-row py-3">
               <dt class="md:w-[35%] w-full text-gray-700">事業内容</dt>
-              <dd class="md:w-[65%] w-full text-gray-700">不動産売買・仲介業務・投資運用業</dd>
+              <dd class="md:w-[65%] w-full text-gray-700">保険代理店</dd>
             </div>
           </dl>
         </div>
@@ -325,39 +130,78 @@ import HeaderLogo from '../assets/img/risevista-logo.png';
   </section>
 </Layout>
 
-<!-- ========================= CSS ========================= -->
+<!-- =================== Styles (1箇所に集約) =================== -->
 <style>
-.black-bar {
-  width: 5vw;
-  min-width: 40px;
-  height: 1px;
-  background: #000;
-  display: block;
-  border-radius: 1px;
-}
+  .black-bar { width: 5vw; min-width: 40px; height: 1px; background: #000; display: block; border-radius: 1px; }
+  .writing-vertical { writing-mode: vertical-rl; text-orientation: mixed; }
 
-.writing-vertical {
-  writing-mode: vertical-rl;
-  text-orientation: mixed;
-}
+  /* Scroll-in */
+  .js-inview-fadeIn { opacity: 0; transform: translateY(18px); will-change: transform, opacity; }
+  .js-inview-fadeIn[data-is-active="true"] {
+    animation: ani-fadeIn 2s cubic-bezier(0.61, 1, 0.88, 1) var(--ani-delay, 0s) forwards 1 normal;
+    -webkit-animation: ani-fadeIn 2s cubic-bezier(0.61, 1, 0.88, 1) var(--ani-delay, 0s) forwards 1 normal;
+  }
+  @keyframes ani-fadeIn { 0% { opacity: 0; transform: translateY(18px); filter: blur(1px); } 100% { opacity: 1; transform: translateY(0); filter: blur(0); } }
+
+  /* 補助 */
+  [data-parallax-root] h1 { font-feature-settings: "ss01" on, "liga" on; }
 </style>
 
-<!-- ========================= JavaScript ========================= -->
+<!-- =================== Scripts (1箇所に集約) =================== -->
 <script>
-  document.addEventListener('DOMContentLoaded', () => {
-    // ヘッダー・フッターのアンカーリンクを取得
-    document.querySelectorAll('a[href^="#"]').forEach(link => {
-      link.addEventListener('click', (event) => {
-        const target = event.currentTarget as HTMLElement;
-        const href = target.getAttribute('href');
-        if (href && href.startsWith('#')) {
-          const targetElement = document.querySelector(href);
-          if (targetElement) {
-            event.preventDefault();
-            targetElement.scrollIntoView({ behavior: 'smooth' });
-          }
-        }
+  (function(){
+    // 1) アンカーリンクのスムーススクロール（純JS）
+    document.querySelectorAll('a[href^="#"]').forEach((link) => {
+      link.addEventListener('click', (e) => {
+        const href = link.getAttribute('href');
+        if (!href) return;
+        const target = document.querySelector(href);
+        if (target) { e.preventDefault(); target.scrollIntoView({ behavior: 'smooth' }); }
       });
     });
-  });
+
+    // 2) シンプル rAF パララックス（存在すれば動作）
+    const root = document.querySelector('[data-parallax-root]');
+    if (root) {
+      const bg  = root.querySelector('[data-parallax-bg]');
+      const fg  = root.querySelector('[data-parallax-fg]');
+      const img = root.querySelector('[data-parallax-img]');
+      const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      let rafId = null;
+      const clamp = (n, min, max) => Math.max(min, Math.min(max, n));
+      const update = () => { const r = root.getBoundingClientRect(); const vh = innerHeight; const p = clamp(1 - (r.top + r.height - vh) / (r.height + vh), 0, 1); if (bg) bg.style.transform = `translate3d(0, ${-30*p}px, 0)`; if (fg) fg.style.transform = `translate3d(0, ${-60*p}px, 0)`; if (img) img.style.transform = `translate3d(0, ${-90*p}px, 0)`; rafId = null; };
+      const onScroll = () => { if (rafId || reduce) return; rafId = requestAnimationFrame(update); };
+      update(); addEventListener('scroll', onScroll, { passive: true }); addEventListener('resize', update);
+    }
+
+    // 3) InView フェードイン
+    const els = document.querySelectorAll('.js-inview-fadeIn');
+    if (els.length) {
+      const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+      const io = new IntersectionObserver((entries) => {
+        entries.forEach((en) => {
+          if (en.isIntersecting) { const el = en.target; const d = el.getAttribute('data-ani-delay') || '0s'; el.style.setProperty('--ani-delay', d); el.setAttribute('data-is-active', 'true'); io.unobserve(el); }
+        });
+      }, { threshold: 0.15 });
+      els.forEach((el) => { if (reduce) { el.style.opacity = 1; } else { io.observe(el); } });
+    }
+
+    // 4) 画像の遅延読み込み最適化
+    const lazyImages = document.querySelectorAll('.lazy-image');
+    if (lazyImages.length) {
+      const imageObserver = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            const img = entry.target;
+            img.classList.add('loaded');
+            imageObserver.unobserve(img);
+          }
+        });
+      }, { threshold: 0.1 });
+      
+      lazyImages.forEach((img) => {
+        imageObserver.observe(img);
+      });
+    }
+  })();
 </script>

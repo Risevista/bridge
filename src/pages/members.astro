@@ -1,0 +1,84 @@
+---
+import { Image } from "astro:assets";
+import Portrait from "../assets/img/president.png"; // 差し替え
+
+const heading = {
+  en: "Message",
+  ja: "代表挨拶",
+  titleA: "私たちは",
+  titleB: "「ほけんのぜんぶ」",
+  titleC: "をお届けします。"
+};
+---
+<meta charset="utf-8" />   
+<section class="bg-white">
+  <div class="max-w-6xl mx-auto px-4 md:px-6 py-16 md:py-24">
+    <!-- 小見出し -->
+    <div class="mb-8">
+      <p class="text-sm text-gray-500">{heading.en}</p>
+      <h2 class="text-emerald-900 text-2xl md:text-3xl font-semibold tracking-wide">{heading.ja}</h2>
+    </div>
+
+    <!-- 上段：左に大見出し、右に写真 -->
+    <div class="grid grid-cols-1 md:grid-cols-12 gap-10 items-start">
+      <!-- 見出し -->
+      <div class="md:col-span-6">
+        <h3 class="text-3xl md:text-4xl lg:text-5xl font-extrabold leading-tight text-gray-900">
+          {heading.titleA}
+          <span class="ink-underline text-blue-700">{heading.titleB}</span>
+          {heading.titleC}
+        </h3>
+      </div>
+
+      <!-- 写真 -->
+      <figure class="md:col-span-6">
+        <Image
+          src={Portrait}
+          alt="代表取締役 CEO ○○ ○○"
+          class="w-full aspect-[3/2] object-cover rounded-lg shadow-sm"
+          sizes="(min-width: 768px) 600px, 100vw"
+          loading="eager"
+          decoding="async"
+        />
+      </figure>
+
+      <!-- 下段 左コラム -->
+      <div class="md:col-span-6 space-y-4 text-gray-700 leading-relaxed">
+        <p>
+          日頃より格別のお引き立てを賜り、誠にありがとうございます。少子高齢化が進む日本では…
+        </p>
+        <p>
+          一方で、社会全体のデジタル化が進み、ITの進化やSNSの普及によって…
+        </p>
+        <p>
+          その行動原理をつくっているのは私たちのミッションステートメントである
+          「お客さまの人生において保険が支えるあらゆるシーンで…」という考えです。
+        </p>
+      </div>
+
+      <!-- 下段 右コラム -->
+      <div class="md:col-span-6 space-y-4 text-gray-700 leading-relaxed">
+        <p>
+          今後ライフスタイルの多様化が一段と進む中、単一の商品や販売チャネルを提供している企業よりも…
+        </p>
+        <p>
+          そのためには人的資本、すなわち、私たちの想いをお客さまにお届けする人材が必要です…
+        </p>
+
+        <!-- 署名 -->
+        <div class="pt-6 text-right">
+          <p class="text-sm text-gray-500">代表取締役社長（CEO）</p>
+          <p class="text-base font-semibold text-gray-900">〇〇 〇〇</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+/* 見本の “青い強調” を疑似マーカーで再現 */
+.ink-underline{
+  background: linear-gradient(transparent 70%, rgba(59,130,246,.22) 0);
+  padding-inline: .1em;
+}
+</style>

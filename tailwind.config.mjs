@@ -19,12 +19,12 @@ export default {
       },
       colors: {
         primary: {
-          DEFAULT: "#184C3A",
+          DEFAULT: "#161448",
           hover: colors.gray[400],
           back: colors.black,
         },
         secondary: {
-          DEFAULT: "#CEE6C1",
+          DEFAULT: "#0075c3",
           accent: colors.red[500],
           screen: "#441414",
         },

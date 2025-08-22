@@ -26,8 +26,7 @@ body {
     --nav-height: 0; /* Height of nav bar. Set actual value in Layout.astro */
     font-family:
         /* 英語テキストに適用 */ 'Cormorant Garamond',
-        /* 日本語テキストに適用 */ 'Noto Serif JP',
-        system-ui,
+        /* 日本語テキストに適用 */ 'Noto Serif JP'
         serif,
         sans-serif;
 }
