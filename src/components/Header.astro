@@ -182,7 +182,7 @@ const headerClass = isIndexPage ? 'header-navigation fixed top-0 left-0 z-[9999]
           menu.classList.remove('hidden');
           setTimeout(() => {
             menu.classList.remove('-translate-y-full');
-            header.style.backgroundColor = 'rgba(0,0,0,0.9)';
+            header.style.backgroundColor = '#ffffff';
           }, 10);
           hamburgerIcon.classList.add('hidden');
           closeIcon.classList.remove('hidden');
@@ -276,9 +276,9 @@ const headerClass = isIndexPage ? 'header-navigation fixed top-0 left-0 z-[9999]
 
   .header-navigation {
     height: var(--header-height);
-    background: rgba(255, 255, 255, 0.95);
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
+    background-color: #ffffff !important;
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
     box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
   }
 
@@ -310,7 +310,7 @@ const headerClass = isIndexPage ? 'header-navigation fixed top-0 left-0 z-[9999]
     bottom: 0;
     height: 2px;
     width: 0;
-    background-color: #0075c3;
+    background-color: #800;
     transition: width 0.3s ease;
   }
   .nav-link:hover {
@@ -365,8 +365,8 @@ const headerClass = isIndexPage ? 'header-navigation fixed top-0 left-0 z-[9999]
   /* ダークテーマ対応 */
   @media (prefers-color-scheme: dark) {
     .header-navigation {
-      background-color: rgba(0, 0, 0, 0.95) !important;
-      box-shadow: 0 2px 20px rgba(255, 255, 255, 0.1);
+      background-color: #ffffff !important;
+      box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
     }
   }
 </style>
