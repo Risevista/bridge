@@ -74,13 +74,16 @@ const slides: Slide[] = [
     <div class="flex flex-1 items-center">
       {/* Headline */}
       {slides.map((s, i) => (
-        <h1
-          class={`slide-text absolute top-1/2 -translate-y-1/2 w-full px-[15rem]
-                  text-xl md:text-3xl font-bold tracking-wider whitespace-nowrap opacity-0 pointer-events-none
-                  ${i === 0 ? "active opacity-100" : ""}
-                  ${s.align === "right" ? "text-right justify-end flex" : "text-left justify-start flex"}`}
-          data-index={i}
-        >
+       <h1
+  class={`slide-text absolute inset-0
+          flex items-center justify-center
+          w-full px-6 md:px-[15rem]
+          text-xl md:text-3xl font-bold tracking-wider
+          text-center whitespace-normal break-words leading-tight top-1/2 -translate-y-1/2
+          pointer-events-none
+          ${i === 0 ? "active opacity-100" : "opacity-0"}`}
+  data-index={i}
+>
           <span class="max-w-xl text-white md:text-5xl">
             {Array.isArray(s.headline)
               ? s.headline.map((line) => <span class="block mb-4">{line}</span>)
@@ -94,9 +97,9 @@ const slides: Slide[] = [
   </div>
 
   <!-- Nav dots + counter + timer -->
-  <div class="absolute bottom-8 left-8 z-20">
+  <div class="absolute bottom-2 left-8 md:left-8 right-2 md:right-auto z-20">
     <!-- Progress timer -->
-    <div class="absolute bottom-8 left-24 z-20" aria-label="Slide timer">
+    <div class="absolute bottom-2 left-24 md:left-24 right-2 md:right-auto z-20" aria-label="Slide timer">
       <button class="timer-btn relative flex items-center justify-center w-12 h-12 rounded-full" title="Pause/Resume">
         <svg class="progress-ring -rotate-90" width="48" height="48" viewBox="0 0 48 48">
           <circle cx="24" cy="24" r="20" fill="none" class="stroke-neutral-300" stroke-width="3" />
@@ -108,9 +111,6 @@ const slides: Slide[] = [
           <div class="w-[2px] h-5 bg-red-600 mx-[3px]"></div>
         </div>
       </button>
-      <div class="mt-3 w-12 h-12 rounded-full border border-neutral-300 flex items-center justify-center">
-        <span class="timer-index text-neutral-600 text-sm leading-none">01</span>
-      </div>
     </div>
 
     <div class="flex flex-col space-y-4" role="tablist" aria-label="Hero slides">
