@@ -1,9 +1,5 @@
 {
-<<<<<<< HEAD
-  "name": "bridge-insurance",
-=======
   "name": "bridge",
->>>>>>> 777de5525ab96230f86054e7e8a010cf75659d9c
   "type": "module",
   "version": "0.0.1",
   "scripts": {
