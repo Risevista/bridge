@@ -1,284 +1,173 @@
----
-// HeroSlider.astro
-import { Image } from "astro:assets"; 
-import HeaderLogo from "../assets/img/logo.png";
-import Slide1 from "../assets/img/slide1.jpg";
-import Slide2 from "../assets/img/slide2.jpg";
-import Slide3 from "../assets/img/slide3.jpg";
-import Slide4 from "../assets/img/slide4.jpg";
-import Logo from "../assets/img/bridge-logo-trans5.png";
-import Logo2 from "../assets/img/logo2.png";
-
-interface Slide {
-  image: ImageMetadata; // astro:assets の型
-  headline: string[];
-  align: "left" | "right";
-}
-
-const slides: Slide[] = [
-  {
-    image: Slide1,
-    headline: ["圧倒的な「安心」を", "あなたに"],
-    align: "right",
-  },
-  {
-    image: Slide2,
-    headline: ["人の力で", "新しい創造と変革を"],
-    align: "left",
-  },
-  {
-    image: Slide3,
-    headline: ["日本に投資文化を根付かせ", "投資を身近なものに"],
-    align: "right",
-  },
-  {
-    image: Slide4,
-    headline: ["投資と消費で", "日本を世界一のグローバルカントリーに"],
-    align: "left",
-  },
-];
----
-
-<section class="relative h-screen overflow-hidden font-serif" data-hero>
-  <!-- logo -->
-  <div class="absolute bottom-6 md:bottom-10 left-1/2 -translate-x-1/2 transform
-            z-20 flex items-end gap-3 md:gap-4 pointer-events-none">
-  <img src={Logo2.src} alt="" class="block flex-none h-auto object-contain w-[clamp(64px,8vw,120px)]" />
-  <img src={Logo.src}  alt="" class="block flex-none h-auto object-contain w-[clamp(120px,14vw,260px)]" />
-</div>
-
-<!-- Background slides -->
-<div class="absolute inset-0 opacity-50" data-slides>
-  {slides.map((s, i) => (
-    <div
-      class={`hero-slide absolute inset-0 bg-cover bg-center bg-no-repeat opacity-0 transition-all duration-1000 ease-in-out ${
-        i === 0 ? "active opacity-100 scale-100" : "scale-105"
-      }`}
-      style={`background-image: 
-        linear-gradient(
-          to top, 
-          rgba(255,255,255,0.6) 0%, 
-          rgba(255,255,255,0.3) 15%, 
-          rgba(255,255,255,0.1) 30%, 
-          rgba(255,255,255,0) 50%
-        ), 
-        url(${s.image.src});
-              will-change: opacity, transform;`}
-      data-index={i}
-    />
-  ))}
-</div>
-
-  <!-- Content -->
-  <div class="relative z-10 flex h-full flex-col justify-between px-6 py-16">
-    <div class="flex flex-1 items-center">
-      {/* Headline */}
-      {slides.map((s, i) => (
-       <h1
-  class={`slide-text absolute inset-0
-          flex items-center justify-center
-          w-full px-6 md:px-[15rem]
-          text-xl md:text-3xl font-bold tracking-wider
-          text-center whitespace-normal break-words leading-tight top-1/2 -translate-y-1/2
-          pointer-events-none
-          ${i === 0 ? "active opacity-100" : "opacity-0"}`}
-  data-index={i}
->
-          <span class="max-w-xl text-white md:text-5xl">
-            {Array.isArray(s.headline)
-              ? s.headline.map((line) => <span class="block mb-4">{line}</span>)
-              : s.headline}
-          </span>
-        </h1>
-      ))}
-    </div>
-
-    <div class="h-16"></div>
-  </div>
-
-  <!-- Nav dots + counter + timer -->
-  <div class="absolute bottom-2 left-8 md:left-8 right-2 md:right-auto z-20">
-    <!-- Progress timer -->
-    <div class="absolute bottom-2 left-24 md:left-24 right-2 md:right-auto z-20" aria-label="Slide timer">
-      <button class="timer-btn relative flex items-center justify-center w-12 h-12 rounded-full" title="Pause/Resume">
-        <svg class="progress-ring -rotate-90" width="48" height="48" viewBox="0 0 48 48">
-          <circle cx="24" cy="24" r="20" fill="none" class="stroke-neutral-300" stroke-width="3" />
-          <circle cx="24" cy="24" r="20" fill="none" class="progress stroke-red-600" stroke-width="3"
-            stroke-linecap="round" pathLength="100" stroke-dasharray="100" stroke-dashoffset="100" />
-        </svg>
-        <div class="pointer-events-none absolute inset-0 flex items-center justify-center">
-          <div class="w-[2px] h-5 bg-red-600 mx-[3px]"></div>
-          <div class="w-[2px] h-5 bg-red-600 mx-[3px]"></div>
-        </div>
-      </button>
-    </div>
-
-    <div class="flex flex-col space-y-4" role="tablist" aria-label="Hero slides">
-      {slides.map((_, i) => (
-        <button
-          class={`nav-dot h-3 w-3 rounded-full border-2 border-white transition-all duration-300 ${
-            i === 0 ? "bg-white scale-110" : "bg-transparent"
-          }`}
-          data-index={i}
-          role="tab"
-          aria-selected={i === 0}
-          aria-controls={`hero-slide-${i}`}
-          title={`Go to slide ${i + 1}`}
-        />
-      ))}
-    </div>
-    <div class="mt-4 text-white text-sm"><span class="slide-counter">01</span></div>
+<section class="hero" id="hero">
+  <div class="hero-content">
+      <h1 class="hero-text" data-text="圧倒的な安心をあなたに">圧倒的な安心をあなたに</h1>
+      <p class="subtitle" data-text="Through investment and consumption, make Japan the leading global nation.">Through investment and consumption, make Japan the leading global nation.</p>
   </div>
 </section>
 
+
 <style>
-/* progress ring (stroke utilities) */
-.stroke-neutral-300 { stroke: rgba(0,0,0,.15); }
-.stroke-red-600 { stroke: #dc2626; }
-/* start value; JS で毎サイクル張り替え */
-.progress-ring .progress { stroke-dasharray:100; stroke-dashoffset:100; transition:none; }
+  * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+  }
 
-/* headline animations */
-@keyframes fadeInUp{ from{opacity:0;transform:translateY(30px)} to{opacity:1;transform:translateY(0)} }
-@keyframes slideInFromRight{ from{opacity:0;transform:translateY(-50%) translateX(50px)} to{opacity:1;transform:translateY(-50%) translateX(0)} }
-@keyframes slideOutToLeft{ from{opacity:1;transform:translateY(-50%) translateX(0)} to{opacity:0;transform:translateY(-50%) translateX(-50px)} }
+  body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      overflow-x: hidden;
+      background: #000;
+  }
 
-/* logo animations (side-aware) */
-@keyframes logoInLeft{ from{opacity:0;transform:translateY(-50%) translateX(-40px)} to{opacity:1;transform:translateY(-50%) translateX(0)} }
-@keyframes logoOutLeft{ from{opacity:1;transform:translateY(-50%) translateX(0)} to{opacity:0;transform:translateY(-50%) translateX(-40px)} }
-@keyframes logoInRight{ from{opacity:0;transform:translateY(-50%) translateX(40px)} to{opacity:1;transform:translateY(-50%) translateX(0)} }
-@keyframes logoOutRight{ from{opacity:1;transform:translateY(-50%) translateX(0)} to{opacity:0;transform:translateY(-50%) translateX(40px)} }
+  .hero {
+      position: relative;
+      width: 100%;
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      background: #000;
+  }
+
+  /* 背景のワイプレイヤー */
+  .hero::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: #fff;
+      transform: translateX(-100%);
+      animation: wipeBackground 2.5s cubic-bezier(0.25, 0.1, 0.25, 1) 2s forwards;
+      z-index: 1;
+  }
+
+  .hero-content {
+      position: relative;
+      z-index: 2;
+      text-align: center;
+      padding: 0 20px;
+  }
+
+  .hero-text {
+      font-size: clamp(2.5rem, 8vw, 5rem);
+      font-weight: 300;
+      letter-spacing: 0.05em;
+      line-height: 1.3;
+      color: #fff;
+      opacity: 0;
+      transform: scale(0.8);
+      animation: fadeInText 2s ease-out 0.5s forwards;
+      mix-blend-mode: difference;
+      position: relative;
+  }
+
+  /* 文字色変化のための追加レイヤー */
+  .hero-text::after {
+      content: attr(data-text);
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      color: #000;
+      opacity: 0;
+      animation: changeTextColor 2.5s ease-in-out 2s forwards;
+      mix-blend-mode: normal;
+  }
+
+  @keyframes fadeInText {
+      to {
+          opacity: 1;
+          transform: scale(1);
+      }
+  }
+
+  @keyframes wipeBackground {
+      to {
+          transform: translateX(0);
+      }
+  }
+
+  @keyframes changeTextColor {
+      to {
+          opacity: 1;
+      }
+  }
+
+
+  /* 追加のビジュアル要素 */
+  .subtitle {
+      margin-top: 30px;
+      font-size: clamp(1rem, 3vw, 1.5rem);
+      font-weight: 400;
+      letter-spacing: 0.1em;
+      color: #fff;
+      opacity: 0;
+      transform: translateY(20px);
+      animation: fadeInSubtitle 2.5s ease-out 4.5s forwards;
+      mix-blend-mode: difference;
+      white-space: nowrap;
+  }
+
+  /* Mobile: allow text wrapping */
+  @media (max-width: 768px) {
+      .subtitle {
+          white-space: normal;
+      }
+  }
+
+  .subtitle::after {
+      content: attr(data-text);
+      position: absolute;
+      margin-top: 30px;
+      left: 50%;
+      transform: translateX(-50%);
+      color: #155aa8;
+      opacity: 0;
+      animation: changeSubtitleColor 2.5s ease-in-out 2s forwards;
+      mix-blend-mode: normal;
+      white-space: nowrap;
+  }
+
+  /* Mobile: allow text wrapping for pseudo-element */
+  @media (max-width: 768px) {
+      .subtitle::after {
+          white-space: normal;
+      }
+  }
+
+  @keyframes fadeInSubtitle {
+      to {
+          opacity: 1;
+          transform: translateY(0);
+      }
+  }
+
+  @keyframes changeSubtitleColor {
+      from {
+          opacity: 0;
+      }
+      50% {
+          opacity: 0;
+      }
+      to {
+          opacity: 1;
+      }
+  }
 </style>
 
-<script is:inline>
-  class HeroSlider {
-    constructor(root) {
-      this.root    = root;
-      this.slides  = Array.from(root.querySelectorAll('.hero-slide'));
-      this.texts   = Array.from(root.querySelectorAll('.slide-text'));
-      this.logos   = Array.from(root.querySelectorAll('.slide-logo'));
-      this.dots    = Array.from(root.querySelectorAll('.nav-dot'));
-      this.counter = root.querySelector('.slide-counter');
-  
-      this.index = 0;
-      this.animating = false;
-  
-      this.cfg = { bg: 1000, text: 800, cycle: 4000, buffer: 20 };
-  
-      // progress ui（見た目だけ。クリック/ホバーは無効化）
-      this.progressEl = root.querySelector('.progress-ring .progress');
-      this.timerBtn   = root.querySelector('.timer-btn');
-      this.timerIndex = root.querySelector('.timer-index');
-      this.cycleTimer = null;
-  
-      // 背景トランジション時間
-      this.slides.forEach(el => el.style.transitionDuration = this.cfg.bg + 'ms');
-  
-      this.bind();
-      this.startCycle(); // 初回開始
-    }
-  
-    bind() {
-      // ドットでの手動移動のみ有効
-      this.dots.forEach((btn) =>
-        btn.addEventListener('click', () => this.go(+btn.dataset.index))
-      );
-  
-      // ★ 一時停止系は全部殺す（hover/toggleなし）
-      // this.root.addEventListener('mouseenter', () => this.pauseCycle());
-      // this.root.addEventListener('mouseleave', () => this.startCycle());
-      // if (this.timerBtn) this.timerBtn.addEventListener('click', ...);
-    }
-  
-    startCycle() {
-      this.cancelCycle();
-      this.startProgress();
-      this.cycleTimer = setTimeout(() => this.next(), this.cfg.cycle);
-    }
-  
-    // 以降は内部でのみ使用（外部から呼ばれない）
-    pauseCycle() {
-      // もう使わないが、万一呼ばれても視覚だけリセットしないよう何もしない
-    }
-  
-    cancelCycle() {
-      if (this.cycleTimer) {
-        clearTimeout(this.cycleTimer);
-        this.cycleTimer = null;
-      }
-      if (this.progressEl) this.progressEl.style.transition = 'none';
-    }
-  
-    // 円形プログレスを毎サイクル 100 -> 0 に流す
-    startProgress() {
-      if (!this.progressEl) return;
-      this.progressEl.style.transition = 'none';
-      this.progressEl.style.strokeDasharray = '100';
-      this.progressEl.style.strokeDashoffset = '100';
-      this.progressEl.getBBox(); // reflow
-      this.progressEl.style.transition = `stroke-dashoffset ${this.cfg.cycle}ms linear`;
-      requestAnimationFrame(() => {
-        this.progressEl.style.strokeDashoffset = '0';
-      });
-  
-      if (this.timerIndex)
-        this.timerIndex.textContent = String(this.index + 1).padStart(2, '0');
-    }
-  
-    next() { this.go((this.index + 1) % this.slides.length); }
-  
-    go(to) {
-      if (to === this.index || this.animating) return;
-      this.animating = true;
-  
-      const from = this.index;
-      this.index = to;
-  
-      // 背景
-      this.slides.forEach((el, i) => {
-        el.style.opacity   = (i === to) ? '1' : '0';
-        el.style.transform = (i === to) ? 'scale(1)' : 'scale(1.05)';
-      });
-  
-      // 見出し
-      const prevText = this.texts[from], nextText = this.texts[to];
-      if (prevText && nextText) {
-        prevText.classList.remove('active');
-        prevText.style.animation = `slideOutToLeft ${this.cfg.text}ms ease-out forwards`;
-        nextText.classList.add('active');
-        nextText.style.animation = `slideInFromRight ${this.cfg.text}ms ease-out forwards`;
-      }
-  
-      // ロゴ（必要なら）
-      const prevLogo = this.logos[from], nextLogo = this.logos[to];
-      if (prevLogo && nextLogo) {
-        const prevSide = prevLogo.dataset.side;
-        const nextSide = nextLogo.dataset.side;
-        prevLogo.classList.remove('active');
-        prevLogo.style.animation =
-          `${prevSide === 'left' ? 'logoOutLeft' : 'logoOutRight'} ${this.cfg.text}ms ease-out forwards`;
-        nextLogo.classList.add('active');
-        nextLogo.style.animation =
-          `${nextSide === 'left' ? 'logoInLeft' : 'logoInRight'} ${this.cfg.text}ms ease-out forwards`;
-      }
-  
-      // ドット & カウンタ
-      this.dots.forEach((d, i) => {
-        d.classList.toggle('bg-white', i === to);
-        d.classList.toggle('scale-110', i === to);
-      });
-      if (this.counter) this.counter.textContent = String(to + 1).padStart(2, '0');
-  
-      // タイマー/プログレスを再始動（常時オート）
-      this.startCycle();
-  
-      setTimeout(() => { this.animating = false; }, this.cfg.text + this.cfg.buffer);
-    }
+<script>
+  function replayAnimation() {
+      const hero = document.getElementById('hero');
+      const heroClone = hero.cloneNode(true);
+      hero.parentNode.replaceChild(heroClone, hero);
   }
-  
-  window.addEventListener('DOMContentLoaded', () => {
-    const root = document.querySelector('[data-hero]');
-    if (root) new HeroSlider(root);
+
+  // 初回ロード時の遅延（オプション）
+  window.addEventListener('load', () => {
+      document.body.style.opacity = '1';
   });
-  </script>
-  
+</script>
