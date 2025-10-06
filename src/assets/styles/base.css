@@ -59,7 +59,15 @@ p{
     --scroll-y: 0px; /*  */
     --visibility-on-scroll: hidden; /* Set "visible" when scroll happens.  Mainly for showing Back to top only when scroll happens */
     --nav-height: 0; /* Height of nav bar. Set actual value in Layout.astro */
+<<<<<<< HEAD
     --fontFamily: "fot-tsukumin-pr6n", sans-serif;
+=======
+    font-family:
+        /* 英語テキストに適用 */ 'Cormorant Garamond',
+        /* 日本語テキストに適用 */ 'Noto Serif JP'
+        serif,
+        sans-serif;
+>>>>>>> 777de5525ab96230f86054e7e8a010cf75659d9c
 }
 /* Set top margin to avoid hiding behind nav bar */
 [id^='anchor-'] {

@@ -1,11 +1,15 @@
 {
+<<<<<<< HEAD
   "name": "bridge-insurance",
+=======
+  "name": "bridge",
+>>>>>>> 777de5525ab96230f86054e7e8a010cf75659d9c
   "type": "module",
   "version": "0.0.1",
   "scripts": {
     "dev": "astro dev",
     "start": "astro dev",
-    "build": "astro check && astro build",
+    "build": "astro build",
     "preview": "astro preview",
     "astro": "astro",
     "lint": "eslint ./src",

@@ -1,5 +1,6 @@
 ---
 import Image from './Image.astro';
+<<<<<<< HEAD
 import HeaderLogo from '../assets/img/bridge-logo.png'; 
 import Textlogo from '../assets/img/textlogo.webp';
 const { title } = Astro.props;
@@ -34,9 +35,28 @@ const navItems = [
     href: '/contact', 
     text: 'お問い合わせ',
   }
+=======
+import HeaderLogo from '../assets/img/bridge-logo.avif'; 
+const { title, isIndexPage = false } = Astro.props;
+
+type NavSubItem = { href: string; text: string };
+type NavItem = { href: string; text: string; submenu?: NavSubItem[] };
+
+// ナビゲーション項目の定義（ホーム／会社概要／社員紹介／勧誘方針／プライバシーポリシー）
+const navItems: NavItem[] = [
+  { href: '/', text: 'ホーム' },
+  { href: '/#company', text: '会社概要' },
+  { href: '/members', text: '社員紹介' },
+  { href: '/solicitation', text: '勧誘方針' },
+  { href: '/privacy', text: 'プライバシーポリシー' },
+>>>>>>> 777de5525ab96230f86054e7e8a010cf75659d9c
 ];
+
+// index.astro以外では常時表示、index.astroではスクロール時に表示
+const headerClass = isIndexPage ? 'header-navigation fixed top-0 left-0 z-[9999] w-full px-6 py-10 flex items-center justify-between transition-all duration-300 header-hidden' : 'header-navigation fixed top-0 left-0 z-[9999] w-full px-6 py-10 flex items-center justify-between transition-all duration-300';
 ---
 
+<<<<<<< HEAD
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -127,27 +147,111 @@ const navItems = [
                       href={subItem.href} 
                       class="block px-8 py-3 text-primary hover:text-primary hover:bg-gray-200 text-sm transition-colors"
                     >
+=======
+<!-- ヘッダー - index.astro以外では常時表示 -->
+<header id="header-nav" class={headerClass}>
+  <!-- 左側：テキスト＋ロゴ -->
+  <div class="flex items-center gap-2">
+    <a href="/" class="flex items-center gap-2">
+      <Image src={HeaderLogo} alt="Bridge" class="h-8 md:h-10 w-auto" />
+    </a>
+  </div>
+  
+  <!-- 右側：ナビ -->
+  <div class="flex items-center gap-6">
+    <ul id="nav-menu" class="hidden md:flex gap-8 md:px-4 text-[1rem] font-medium">
+      {navItems.map(item => (
+        <li class="relative group">
+          <a href={item.href} class="nav-link">
+            {item.text}
+          </a>
+          <!-- ドロップダウンメニュー -->
+          {item.submenu && (
+            <div class="absolute top-full left-1/2 transform -translate-x-1/2 mt-2 w-48 bg-white rounded-lg shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">
+              <div class="py-2">
+                {item.submenu?.map((subItem, index) => (
+                  <>
+                    <a href={subItem.href} class="block px-4 py-3 text-gray-800 hover:bg-gray-50 text-sm transition-colors text-center">
+>>>>>>> 777de5525ab96230f86054e7e8a010cf75659d9c
                       {subItem.text}
                     </a>
-                  </li>
+                    {index < (((item.submenu?.length) ?? 0) - 1) && (
+                      <div class="border-t border-gray-200 mx-2"></div>
+                    )}
+                  </>
                 ))}
+<<<<<<< HEAD
               </ul>
             )}
           </li>
         ))}
         
       </ul>
-    </div>
-
-    <!-- モバイルメニュー用スクリプト -->
-    <script>
-      document.addEventListener('DOMContentLoaded', () => {
-        const toggle = document.getElementById('menu-toggle');
-        const menu = document.getElementById('mobile-menu');
-        const hamburgerIcon = document.getElementById('hamburger-icon');
-        const closeIcon = document.getElementById('close-icon');
-        const header = document.getElementById('header-nav');
+=======
+              </div>
+            </div>
+          )}
+        </li>
+      ))}
+    </ul>
     
+
+
+    <!-- モバイル用 -->
+    <div class="md:hidden flex items-center gap-2 justify-end w-full">
+      <button id="menu-toggle" class="text-secondary focus:outline-none">
+        <svg id="hamburger-icon" class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2"
+          viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16" />
+        </svg>
+        <svg id="close-icon" class="w-6 h-6 hidden" fill="none" stroke="currentColor" stroke-width="2"
+          viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+        </svg>
+      </button>
+>>>>>>> 777de5525ab96230f86054e7e8a010cf75659d9c
+    </div>
+  </div>
+</header>
+
+<!-- モバイルメニュー -->
+<div id="mobile-menu" class="md:hidden hidden bg-black bg-opacity-90 fixed top-[80px] left-0 w-full z-[9998] transform transition-transform duration-300 ease-in-out -translate-y-full">
+  <ul class="flex flex-col text-white text-sm font-light max-h-[70vh] overflow-y-auto">
+    {navItems.map((item, itemIndex) => (
+      <li class="border-b border-gray-700 last:border-b-0">
+        <div class="flex items-center justify-between px-6 py-4">
+          <a href={item.href} class="nav-link flex-1 text-white hover:text-gray-300">
+            {item.text}
+          </a>
+          {item.submenu && (
+            <button 
+              class="submenu-toggle ml-2 p-1 text-white hover:text-gray-300 transition-transform duration-200"
+              data-target={`submenu-${itemIndex}`}
+            >
+              <svg class="w-4 h-4 transform transition-transform duration-200" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"></path>
+              </svg>
+            </button>
+          )}
+        </div>
+        {item.submenu && (
+          <ul id={`submenu-${itemIndex}`} class="submenu hidden bg-gray-800 bg-opacity-50">
+            {item.submenu.map((subItem, subIndex) => (
+              <li class="border-b border-gray-600 last:border-b-0">
+                <a 
+                  href={subItem.href} 
+                  class="block px-8 py-3 text-gray-300 hover:text-white hover:bg-gray-700 text-sm transition-colors"
+                >
+                  {subItem.text}
+                </a>
+              </li>
+            ))}
+          </ul>
+        )}
+      </li>
+    ))}
+    
+<<<<<<< HEAD
         if (toggle && menu && hamburgerIcon && closeIcon && header) {
           toggle.addEventListener('click', () => {
             const isHidden = menu.classList.contains('hidden');
@@ -175,38 +279,51 @@ const navItems = [
               closeIcon.classList.add('hidden');
             }
           });
-        }
-    
-        document.querySelectorAll('.submenu-toggle').forEach(button => {
-          button.addEventListener('click', (e) => {
-            e.preventDefault();
-            e.stopPropagation();
-    
-            const targetId = button.getAttribute('data-target');
-            if (!targetId) return;
-    
-            const submenu = document.getElementById(targetId);
-            const arrow = button.querySelector('svg');
-    
-            if (submenu) {
-              if (submenu.classList.contains('hidden')) {
-                submenu.classList.remove('hidden');
-                if (arrow) arrow.classList.add('rotate-90');
-              } else {
-                submenu.classList.add('hidden');
-                if (arrow) arrow.classList.remove('rotate-90');
-              }
-            }
-          });
-        });
-      });
-    </script>
-    
-    <style>
-      :root {
-        --header-height: 80px;
-      }
+=======
 
+  </ul>
+</div>
+
+<!-- モバイルメニュー用スクリプト -->
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const toggle = document.getElementById('menu-toggle');
+    const menu = document.getElementById('mobile-menu');
+    const hamburgerIcon = document.getElementById('hamburger-icon');
+    const closeIcon = document.getElementById('close-icon');
+    const header = document.getElementById('header-nav');
+
+    if (toggle && menu && hamburgerIcon && closeIcon && header) {
+      toggle.addEventListener('click', () => {
+        const isHidden = menu.classList.contains('hidden');
+        if (isHidden) {
+          menu.classList.remove('hidden');
+          setTimeout(() => {
+            menu.classList.remove('-translate-y-full');
+            header.style.backgroundColor = '#ffffff';
+          }, 10);
+          hamburgerIcon.classList.add('hidden');
+          closeIcon.classList.remove('hidden');
+        } else {
+          menu.classList.add('-translate-y-full');
+          setTimeout(() => {
+            menu.classList.add('hidden');
+            header.style.backgroundColor = 'white';
+            document.querySelectorAll('.submenu').forEach(submenu => {
+              submenu.classList.add('hidden');
+            });
+            document.querySelectorAll('.submenu-toggle svg').forEach(arrow => {
+              if (arrow) arrow.classList.remove('rotate-90');
+            });
+          }, 300);
+          hamburgerIcon.classList.remove('hidden');
+          closeIcon.classList.add('hidden');
+>>>>>>> 777de5525ab96230f86054e7e8a010cf75659d9c
+        }
+      });
+    }
+
+<<<<<<< HEAD
       .header-navigation {
         height: var(--header-height);
         background: transparent;
@@ -269,18 +386,34 @@ const navItems = [
       .group:hover .group-hover\:visible {
         visibility: visible;
       }
+=======
+    document.querySelectorAll('.submenu-toggle').forEach(button => {
+      button.addEventListener('click', (e) => {
+        e.preventDefault();
+        e.stopPropagation();
 
-      /* モバイルメニューのスタイル */
-      .submenu {
-        max-height: 0;
-        overflow: hidden;
-        transition: max-height 0.3s ease-in-out;
-      }
-      
-      .submenu:not(.hidden) {
-        max-height: 300px;
-      }
+        const targetId = button.getAttribute('data-target');
+        if (!targetId) return;
 
+        const submenu = document.getElementById(targetId);
+        const arrow = button.querySelector('svg');
+>>>>>>> 777de5525ab96230f86054e7e8a010cf75659d9c
+
+        if (submenu) {
+          if (submenu.classList.contains('hidden')) {
+            submenu.classList.remove('hidden');
+            if (arrow) arrow.classList.add('rotate-90');
+          } else {
+            submenu.classList.add('hidden');
+            if (arrow) arrow.classList.remove('rotate-90');
+          }
+        }
+      });
+    });
+  });
+</script>
+
+<<<<<<< HEAD
       /* モバイルメニューのborderを中央に配置 */
       #mobile-menu li {
         position: relative;
@@ -328,20 +461,146 @@ const navItems = [
       
       .rotate-90 {
         transform: rotate(90deg);
+=======
+<!-- index.astroでのみスクロール表示制御を有効にするスクリプト -->
+{isIndexPage && (
+  <script>
+    // スクロール時のヘッダー表示制御（index.astroでのみ有効）
+    let ticking = false;
+    function handleScroll() {
+      if (!ticking) {
+        requestAnimationFrame(() => {
+          const scrollTop = window.scrollY || 0;
+          const header = document.getElementById('header-nav');
+          
+          if (header) {
+            if (scrollTop > 200) { // 200pxスクロールしたら表示
+              header.style.setProperty('opacity', '1', 'important');
+              header.style.setProperty('visibility', 'visible', 'important');
+              header.style.setProperty('transform', 'translateY(0)', 'important');
+              header.classList.add('header-visible');
+              header.classList.remove('header-hidden');
+            } else {
+              header.style.setProperty('opacity', '0', 'important');
+              header.style.setProperty('visibility', 'hidden', 'important');
+              header.style.setProperty('transform', 'translateY(-100%)', 'important');
+              header.classList.add('header-hidden');
+              header.classList.remove('header-visible');
+            }
+          }
+          
+          ticking = false;
+        });
+        ticking = true;
+>>>>>>> 777de5525ab96230f86054e7e8a010cf75659d9c
       }
+    }
 
-      /* スクロールバーのスタイル */
-      .overflow-y-auto::-webkit-scrollbar {
-        width: 4px;
-      }
-      
-      .overflow-y-auto::-webkit-scrollbar-track {
-        background: rgba(255, 255, 255, 0.1);
-      }
-      
-      .overflow-y-auto::-webkit-scrollbar-thumb {
-        background: rgba(255, 255, 255, 0.3);
-        border-radius: 2px;
-      }
-    </style>
-  </body>
+    document.addEventListener('scroll', handleScroll, { passive: true });
+  </script>
+)}
+
+<style>
+  html {
+  scroll-behavior: smooth;
+}
+  :root {
+    --header-height: 80px;
+  }
+
+  .header-navigation {
+    height: var(--header-height);
+    background-color: #ffffff !important;
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+    box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
+  }
+
+  /* ヘッダーの初期状態 - 非表示（index.astroでのみ適用） */
+  .header-hidden {
+    opacity: 0 !important;
+    visibility: hidden !important;
+    transform: translateY(-100%) !important;
+  }
+
+  /* ヘッダーの表示状態 */
+  .header-visible {
+    opacity: 1 !important;
+    visibility: visible !important;
+    transform: translateY(0) !important;
+  }
+
+  .nav-link {
+    position: relative;
+    display: inline-block;
+    padding-bottom: 4px;
+    text-decoration: none;
+    transition: color 0.3s ease;
+  }
+  .nav-link::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    height: 2px;
+    width: 0;
+    background-color: #800;
+    transition: width 0.3s ease;
+  }
+  .nav-link:hover {
+    color: #0075c3;
+  }
+  .nav-link:hover::after {
+    width: 100%;
+  }
+
+  /* ドロップダウンメニューのスタイル */
+  .group:hover .group-hover\:opacity-100 {
+    opacity: 1;
+  }
+  .group:hover .group-hover\:visible {
+    visibility: visible;
+  }
+
+  /* モバイルメニューのスタイル */
+  .submenu {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease-in-out;
+  }
+  
+  .submenu:not(.hidden) {
+    max-height: 300px;
+  }
+
+  /* 矢印の回転アニメーション */
+  .submenu-toggle svg {
+    transition: transform 0.2s ease-in-out;
+  }
+  
+  .rotate-90 {
+    transform: rotate(90deg);
+  }
+
+  /* スクロールバーのスタイル */
+  .overflow-y-auto::-webkit-scrollbar {
+    width: 4px;
+  }
+  
+  .overflow-y-auto::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.1);
+  }
+  
+  .overflow-y-auto::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.3);
+    border-radius: 2px;
+  }
+
+  /* ダークテーマ対応 */
+  @media (prefers-color-scheme: dark) {
+    .header-navigation {
+      background-color: #ffffff !important;
+      box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
+    }
+  }
+</style>

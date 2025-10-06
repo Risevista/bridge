@@ -1,4 +1,5 @@
 ---
+<<<<<<< HEAD
 // Astro Frontmatter
 import Image from '../components/Image.astro';
 import Layout from '../layouts/Layout.astro';
@@ -68,9 +69,30 @@ const withExcerpt = posts
     return { ...post, excerpt };
   });
 
+=======
+// ============ Frontmatter ============
+import Layout from "../layouts/Layout.astro";
+import Hero from "../components/hero.astro";
+import Image from "../components/Image.astro";
+>>>>>>> 777de5525ab96230f86054e7e8a010cf75659d9c
 
+// Assets
+import HeaderLogo from "../assets/img/bridge-logo.avif";
+import CompanyImage from "../assets/img/service1.jpg"; // 適宜差し替え
+
+// Text (一箇所に集約)
+const COPY = {
+  eyebrowJa: "企業情報",
+  eyebrowEn: "Our Company",
+  head1: "圧倒的な「安心」をあなたに",
+  head2: "個人・法人の総合保険代理店",
+  body1:
+    "保険に関する疑問・課題を解決し、お客様に安心をお届けします。",
+  body2: "企業・個人のお客さまへあらゆる保険ソリューションをご提供します。",
+};
 ---
 
+<<<<<<< HEAD
 <Layout title="圧倒的な安心をあなたに｜保険代理店ならBridge">
   <!-- Preloader overlay -->
   <div id="preloader" class="fixed inset-0 z-[1000] flex items-center justify-center bg-primary-back">
@@ -95,6 +117,60 @@ const withExcerpt = posts
         <svg class="w-4 h-4 text-slate-400 animate-bounce" fill="currentColor" viewBox="0 0 24 24">
           <path d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z"/>
         </svg>
+=======
+<Layout title="株式会社Bridge">
+  <!-- 重要な画像のプリロード -->
+  <link rel="preload" as="image" href={HeaderLogo.src} />
+  <link rel="preload" as="image" href={CompanyImage.src} />
+  
+  <!-- 画像の遅延読み込み用のスタイル -->
+  <style>
+    .lazy-image {
+      opacity: 0;
+      transition: opacity 0.3s ease-in-out;
+    }
+    .lazy-image.loaded {
+      opacity: 1;
+    }
+  </style>
+
+  <!-- =================== HERO =================== -->
+  <Hero />
+
+  <!-- =================== COMPANY SPLIT（出現アニメつき） =================== -->
+  <section class="bg-[#F6F6F6]">
+    <div class="max-w-7xl mx-auto px-6 md:px-8 lg:px-10 py-14 md:py-20">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-center">
+        <!-- LEFT : TEXT -->
+        <div class="lg:col-span-6 xl:col-span-6 space-y-8">
+          <div class="js-inview-fadeIn opacity-0" data-ani-delay="0s">
+            <div class="flex items-center gap-4 text-[#0E0E0E]">
+              <span class="text-[1.25rem] font-semibold">{COPY.eyebrowJa}</span>
+              <span class="h-[1px] w-8 bg-primary inline-block"></span>
+              <span class="text-[1.1rem] text-neutral-500">{COPY.eyebrowEn}</span>
+            </div>
+          </div>
+
+          <h2 class="js-inview-fadeIn opacity-0 leading-tight font-bold text-[7.2vw] md:text-[2vw] text-[#111]" data-ani-delay=".05s">{COPY.head1}</h2>
+          <h3 class="js-inview-fadeIn opacity-0 leading-tight font-bold text-[7.8vw] md:text-[2vw] text-primary" data-ani-delay=".12s">{COPY.head2}</h3>
+
+          <div class="space-y-4 max-w-2xl">
+            <p class="js-inview-fadeIn opacity-0 text-neutral-700" data-ani-delay=".22s">{COPY.body1}</p>
+            <p class="js-inview-fadeIn opacity-0  text-neutral-700" data-ani-delay=".32s">{COPY.body2}</p>
+          </div>
+        </div>
+
+        <!-- RIGHT : IMAGE -->
+        <div class="lg:col-span-6 xl:col-span-6 js-inview-fadeIn opacity-0" data-ani-delay=".18s">
+          <figure class="rounded-3xl overflow-hidden shadow-xl">
+            <Image 
+              src={CompanyImage} 
+              alt="Our Company" 
+              class="w-full h-[46vh] md:h-[54vh] lg:h-[62vh] object-cover lazy-image"
+            />
+          </figure>
+        </div>
+>>>>>>> 777de5525ab96230f86054e7e8a010cf75659d9c
       </div>
     </div>
   </section>  
@@ -133,6 +209,7 @@ const withExcerpt = posts
     </a>
   </section>
 
+<<<<<<< HEAD
     <!-- VALUES セクション（上下の線を共通、4行は等間隔） -->
     <Values />
   
@@ -152,10 +229,34 @@ const withExcerpt = posts
           />
         </div>
   
+=======
+  <!-- =================== COMPANY =================== -->
+  <section class="py-24 bg-white" id="company">
+    <div class="max-w-6xl mx-auto px-4">
+      <div class="mb-12">
+        <div class="flex items-center mb-1">
+          <div class="black-bar mr-4"></div>
+          <p class="text-sm text-gray-500 tracking-wider">会社概要</p>
+        </div>
+        <h2 class="text-6xl font-bold tracking-widest font-inter text-primary">COMPANY</h2>
+      </div>
+
+      <div class="flex flex-col md:flex-row gap-8 items-start">
+        <!-- 左：ロゴ -->
+        <div class="md:w-1/3 w-full flex justify-center items-start">
+          <Image 
+            src={HeaderLogo} 
+            alt="Bridge ロゴ" 
+            class="h-24 w-auto mx-auto" 
+          />
+        </div>
+
+>>>>>>> 777de5525ab96230f86054e7e8a010cf75659d9c
         <!-- 右：リスト -->
         <div class="md:w-2/3 w-full">
           <dl class="divide-y divide-primary text-primary">
             <div class="flex flex-col md:flex-row py-3">
+<<<<<<< HEAD
               <dt class="md:w-[35%] w-full">会社名</dt>
               <dd class="md:w-[65%] w-full ml-3">株式会社Bridge</dd>
             </div>
@@ -178,6 +279,29 @@ const withExcerpt = posts
             <div class="flex flex-col md:flex-row py-3">
               <dt class="md:w-[35%] w-full">事業内容</dt>
               <dd class="md:w-[65%] w-full ml-3">保険代理店</dd>
+=======
+              <dt class="md:w-[35%] w-full text-gray-700">会社名</dt>
+              <dd class="md:w-[65%] w-full text-gray-700">株式会社Bridge</dd>
+            </div>
+            <div class="flex flex-wrap py-3">
+              <dt class="w-full md:w-[35%] text-gray-700">CEO</dt>
+              <dd class="w-full md:w-[65%] text-gray-700">土屋 健二</dd>
+              <!-- ここは dt -->
+              <dt class="w-full md:w-[35%] text-gray-700">代表取締役</dt>
+              <dd class="w-full md:w-[65%] text-gray-700">稲葉 あゆみ</dd>
+            </div>
+            <div class="flex flex-col md:flex-row py-3">
+              <dt class="md:w-[35%] w-full text-gray-700">所在地</dt>
+              <dd class="md:w-[65%] w-full text-gray-700">東京都港区三田3-4-17 藤和三田コープⅡ203</dd>
+            </div>
+            <div class="flex flex-col md:flex-row py-3">
+              <dt class="md:w-[35%] w-full text-gray-700">電話番号</dt>
+              <dd class="md:w-[65%] w-full text-gray-700">03-6435-4592</dd>
+            </div>
+            <div class="flex flex-col md:flex-row py-3">
+              <dt class="md:w-[35%] w-full text-gray-700">事業内容</dt>
+              <dd class="md:w-[65%] w-full text-gray-700">保険代理店</dd>
+>>>>>>> 777de5525ab96230f86054e7e8a010cf75659d9c
             </div>
           </dl>
         </div>
@@ -196,8 +320,9 @@ const withExcerpt = posts
   </div>
 </Layout>
 
-<!-- ========================= CSS ========================= -->
+<!-- =================== Styles (1箇所に集約) =================== -->
 <style>
+<<<<<<< HEAD
 
   :root{
     --draw: 1.2s;   /* 1文字を描く時間 */
@@ -640,10 +765,26 @@ const withExcerpt = posts
   .hero-text { visibility: hidden; }
   body.fonts-loaded .hero-text { visibility: visible; }
 
+=======
+  .black-bar { width: 5vw; min-width: 40px; height: 1px; background: #000; display: block; border-radius: 1px; }
+  .writing-vertical { writing-mode: vertical-rl; text-orientation: mixed; }
+
+  /* Scroll-in */
+  .js-inview-fadeIn { opacity: 0; transform: translateY(18px); will-change: transform, opacity; }
+  .js-inview-fadeIn[data-is-active="true"] {
+    animation: ani-fadeIn 2s cubic-bezier(0.61, 1, 0.88, 1) var(--ani-delay, 0s) forwards 1 normal;
+    -webkit-animation: ani-fadeIn 2s cubic-bezier(0.61, 1, 0.88, 1) var(--ani-delay, 0s) forwards 1 normal;
+  }
+  @keyframes ani-fadeIn { 0% { opacity: 0; transform: translateY(18px); filter: blur(1px); } 100% { opacity: 1; transform: translateY(0); filter: blur(0); } }
+
+  /* 補助 */
+  [data-parallax-root] h1 { font-feature-settings: "ss01" on, "liga" on; }
+>>>>>>> 777de5525ab96230f86054e7e8a010cf75659d9c
 </style>
 
-<!-- ========================= JavaScript ========================= -->
+<!-- =================== Scripts (1箇所に集約) =================== -->
 <script>
+<<<<<<< HEAD
   // Handle slide-in-right animation for heading
   const missionSection = document.querySelector('.mission-section');
   if (missionSection) {
@@ -1316,3 +1457,61 @@ const withExcerpt = posts
     });
   });
 </script>
+=======
+  (function(){
+    // 1) アンカーリンクのスムーススクロール（純JS）
+    document.querySelectorAll('a[href^="#"]').forEach((link) => {
+      link.addEventListener('click', (e) => {
+        const href = link.getAttribute('href');
+        if (!href) return;
+        const target = document.querySelector(href);
+        if (target) { e.preventDefault(); target.scrollIntoView({ behavior: 'smooth' }); }
+      });
+    });
+
+    // 2) シンプル rAF パララックス（存在すれば動作）
+    const root = document.querySelector('[data-parallax-root]');
+    if (root) {
+      const bg  = root.querySelector('[data-parallax-bg]');
+      const fg  = root.querySelector('[data-parallax-fg]');
+      const img = root.querySelector('[data-parallax-img]');
+      const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      let rafId = null;
+      const clamp = (n, min, max) => Math.max(min, Math.min(max, n));
+      const update = () => { const r = root.getBoundingClientRect(); const vh = innerHeight; const p = clamp(1 - (r.top + r.height - vh) / (r.height + vh), 0, 1); if (bg) bg.style.transform = `translate3d(0, ${-30*p}px, 0)`; if (fg) fg.style.transform = `translate3d(0, ${-60*p}px, 0)`; if (img) img.style.transform = `translate3d(0, ${-90*p}px, 0)`; rafId = null; };
+      const onScroll = () => { if (rafId || reduce) return; rafId = requestAnimationFrame(update); };
+      update(); addEventListener('scroll', onScroll, { passive: true }); addEventListener('resize', update);
+    }
+
+    // 3) InView フェードイン
+    const els = document.querySelectorAll('.js-inview-fadeIn');
+    if (els.length) {
+      const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+      const io = new IntersectionObserver((entries) => {
+        entries.forEach((en) => {
+          if (en.isIntersecting) { const el = en.target; const d = el.getAttribute('data-ani-delay') || '0s'; el.style.setProperty('--ani-delay', d); el.setAttribute('data-is-active', 'true'); io.unobserve(el); }
+        });
+      }, { threshold: 0.15 });
+      els.forEach((el) => { if (reduce) { el.style.opacity = 1; } else { io.observe(el); } });
+    }
+
+    // 4) 画像の遅延読み込み最適化
+    const lazyImages = document.querySelectorAll('.lazy-image');
+    if (lazyImages.length) {
+      const imageObserver = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            const img = entry.target;
+            img.classList.add('loaded');
+            imageObserver.unobserve(img);
+          }
+        });
+      }, { threshold: 0.1 });
+      
+      lazyImages.forEach((img) => {
+        imageObserver.observe(img);
+      });
+    }
+  })();
+</script>
+>>>>>>> 777de5525ab96230f86054e7e8a010cf75659d9c

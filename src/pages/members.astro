@@ -2,15 +2,21 @@
 // pages/members.astro
 import Layout from '../layouts/Layout.astro';
 import Image from '../components/Image.astro';
+<<<<<<< HEAD
 import HeroBanner from '../components/HeroBanner.astro';
 import MemberBG from '../assets/img/member-bg.webp';
 import President from '../assets/img/president.png';
 import Member2 from '../assets/img/member2.png';
 import Member3 from '../assets/img/member3.png';
+=======
+import President from '../assets/img/president.png';
+import Member2 from '../assets/img/member2.png';  
+>>>>>>> 777de5525ab96230f86054e7e8a010cf75659d9c
 
 ---
 
 <Layout title="Members | 株式会社Bridge">
+<<<<<<< HEAD
   <main class="bg-white text-primary leading-relaxed min-h-screen font-tsukushi">
     <section class="pt-28 pb-16">
       <HeroBanner image={MemberBG} alt="ProvidersBG" text="社員紹介" description="当社では、お客さまのニーズに合わせて最適な保険商品をご提案できるよう、信頼と実績のある複数の保険会社と提携しています。各社の強みや特長を活かし、お客さまに最適なプランをお選びいただけるようサポートいたします。" align="start" heightClass="h-[30vh]" />
@@ -41,6 +47,35 @@ import Member3 from '../assets/img/member3.png';
                 <p class="text-base md:text-lg leading-relaxed text-stone-700">
                   横浜高校のエースとして、甲子園ベスト４という結果を牽引しプロ野球入り。投手として、北海道日本ハムファイターズ、横浜DeNAベイスターズで活躍し株式会社Bridgeを創業。
                 </p>
+=======
+  <main class="bg-white text-[#1a1a1a] font-sans leading-relaxed">
+    <!-- MESSAGE セクション -->
+    <section class="w-full flex flex-col items-center bg-white text-[#184C3A] py-12 md:py-24 px-4 md:px-0" id="message">
+      <div class="w-full max-w-6xl flex flex-col gap-8">
+        <!-- Title -->
+        <div class="mb-4 md:mb-12">
+          <div class="flex items-center mb-1">
+            <div class="black-bar mr-6"></div>
+            <p class="text-sm text-gray-500 tracking-wider font-serif">社員紹介</p>
+          </div>
+          <h2 class="text-4xl md:text-6xl font-bold tracking-widest font-inter">MEMBER</h2>
+        </div>
+        <!-- Content with two columns -->
+        <div class="w-full flex flex-col md:flex-row gap-8 md:gap-12">
+          <!-- Right Image (モバイルでは最初に表示) -->
+          <div class="flex-1 flex justify-center items-center order-1 md:order-2">
+            <Image src={President} alt="代表者" class="w-64 h-64 md:w-80 md:h-80 object-cover rounded-lg shadow-lg" />
+          </div>
+          <!-- Left Content (モバイルでは2番目に表示) -->
+          <div class="flex-1 flex flex-col items-start justify-center order-2 md:order-1">
+            <p class="text-[16px] leading-loose mb-6 font-serif">
+              横浜高校のエースとして、甲子園ベスト４という結果を牽引しプロ野球入り。投手として、北海道日本ハムファイターズ、​横浜DeNAベイスターズで活躍し株式会社Bridgeを創業。
+            </p>
+            <div class="w-full mt-8 flex items-end justify-end">
+              <div class="text-right">
+                <p class="text-[14px] md:text-[20px]  font-serif">代表取締役社長</p>
+                <p class="text-[14px] md:text-[20px] font-serif">土屋 健二</p>
+>>>>>>> 777de5525ab96230f86054e7e8a010cf75659d9c
               </div>
             </div>
           </div>
@@ -48,6 +83,7 @@ import Member3 from '../assets/img/member3.png';
       </div>
     </section>
 
+<<<<<<< HEAD
     <!-- MEMBER 2 SECTION -->
     <section class="w-full flex flex-col items-center bg-white py-20 md:py-32 px-6 md:px-8" id="member2">
       <div class="w-full max-w-7xl">
@@ -116,6 +152,25 @@ import Member3 from '../assets/img/member3.png';
                   <h3 class="text-base md:text-lg font-semibold text-blue-900 mb-2">有資格</h3>
                   <p class="text-base text-primary">一級建築施工管理技士</p>
                 </div>
+=======
+    <!-- MEMBER2 セクション -->
+    <section class="w-full flex flex-col items-center bg-white text-[#184C3A] py-12 md:py-24 px-4 md:px-0" id="member2">
+      <div class="w-full max-w-6xl flex flex-col gap-8">
+        <!-- Content with two columns -->
+        <div class="w-full flex flex-col md:flex-row gap-8 md:gap-12">
+          <!-- Right Image (モバイルでは最初に表示) -->
+          <div class="flex-1 flex justify-center items-center order-1 md:order-2">
+            <Image src={Member2} alt="代表取締役" class="w-64 h-64 md:w-80 md:h-80 object-cover rounded-lg shadow-lg" />
+          </div>
+          <!-- Left Content (モバイルでは2番目に表示) -->
+          <div class="flex-1 flex flex-col items-start justify-center order-2 md:order-1">
+            <p class="text-[16px] leading-loose mb-6 font-serif">
+              横浜高校野球部出身。2008年に甲子園ベスト4を経験。高校卒業後は専修大学へ進学。大学卒業後は食品メーカーを経て、介護・福祉業界に転職。高級老人ホームにて20代でマネジャーとなり、管理業務経験を積む。10年の介護・福祉業界の経験の後、一念発起し、より自分自身の成長、家族、周りの人々の幸せのために新たな業界へのチャレンジとして株式会社Bridgeへ参画。
+            </p>
+            <div class="w-full mt-8 flex items-end justify-end">
+              <div class="text-right">
+                <p class="text-[14px] md:text-[20px] font-serif">​高橋 亮輔</p>
+>>>>>>> 777de5525ab96230f86054e7e8a010cf75659d9c
               </div>
             </div>
           </div>
@@ -126,6 +181,7 @@ import Member3 from '../assets/img/member3.png';
 </Layout>
 
 <style>
+<<<<<<< HEAD
   /* Subtle embellishments for a luxurious feel without layout shifts */
   .member-card { }
   @media (max-width: 768px) {
@@ -136,4 +192,14 @@ import Member3 from '../assets/img/member3.png';
   p{
     font-size: 16px;
   }
+=======
+.black-bar {
+  width: 5vw;
+  min-width: 40px;
+  height: 1px;
+  background: #000;
+  display: block;
+  border-radius: 1px;
+}
+>>>>>>> 777de5525ab96230f86054e7e8a010cf75659d9c
 </style>

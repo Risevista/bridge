@@ -18,15 +18,25 @@ export default {
       },
       colors: {
         primary: {
+<<<<<<< HEAD
           DEFAULT: "#001722",
+=======
+          DEFAULT: "#161448",
+>>>>>>> 777de5525ab96230f86054e7e8a010cf75659d9c
           hover: colors.gray[400],
           back: "#ffffff",
         },
         secondary: {
+<<<<<<< HEAD
           DEFAULT: "#C79D4F",
           accent: "#C79D4F",
           screen: "#155aa8",
           gray: "#D2D7DA",
+=======
+          DEFAULT: "#0075c3",
+          accent: colors.red[500],
+          screen: "#441414",
+>>>>>>> 777de5525ab96230f86054e7e8a010cf75659d9c
         },
       },
       lineHeight: {

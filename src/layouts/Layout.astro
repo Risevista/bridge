@@ -1,7 +1,10 @@
 ---
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
+<<<<<<< HEAD
 
+=======
+>>>>>>> 777de5525ab96230f86054e7e8a010cf75659d9c
 import '../assets/styles/base.css';
 
 interface Props {
@@ -9,12 +12,15 @@ interface Props {
 }
 
 const { title } = Astro.props;
+const currentPath = Astro.url.pathname;
+const isIndexPage = currentPath === '/';
 ---
 
 <!doctype html>
 <html lang="ja">
     <head>
         <meta charset="UTF-8" />
+<<<<<<< HEAD
         <meta name="description" content="圧倒的な安心をあなたに。保険代理店ならBridgeに。生命保険・損害保険、お客様のライフステージに合わせた最適な保険プランをご提案します。豊富な商品ラインナップと専門知識で、あなたの大切な家族と資産を守ります。" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <meta name="generator" content={Astro.generator} />
@@ -27,6 +33,21 @@ const { title } = Astro.props;
         <meta name="twitter:description" content="圧倒的な安心をあなたに。保険代理店ならBridgeに。生命保険・損害保険、お客様のライフステージに合わせた最適な保険プランをご提案します。豊富な商品ラインナップと専門知識で、あなたの大切な家族と資産を守ります。" />
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+=======
+        <meta name="description" content="株式会社Bridgeの公式サイトです。" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta name="generator" content={Astro.generator} />
+        <meta property="og:title" content="株式会社Bridge" />
+        <meta property="og:description" content="株式会社Bridgeの公式サイトです。" />
+        <meta property="og:type" content="website" />
+        <meta property="og:site_name" content="株式会社Bridge" />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content="株式会社Bridge" />
+        <meta name="twitter:description" content="株式会社Bridgeの公式サイトです。" />
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@300;400;500;700&display=swap" rel="stylesheet">
+>>>>>>> 777de5525ab96230f86054e7e8a010cf75659d9c
         <link
             rel="stylesheet"
             href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
@@ -93,9 +114,15 @@ const { title } = Astro.props;
         <slot name="head" />
         <title>{title}</title>
     </head>
+<<<<<<< HEAD
     <body class="font-tsukushi m-0 p-0 text-[#0C223F] bg-primary-back">
         <Header />
         <main class="flex flex-col text-primary w-full">
+=======
+    <body class="bg-primary-back font-serif m-0 p-0">
+        <Header isIndexPage={isIndexPage} />
+        <main class="flex flex-col bg-primary-back text-primary w-full">
+>>>>>>> 777de5525ab96230f86054e7e8a010cf75659d9c
             <slot />
             <div class="grow"></div>
             <Footer />
@@ -138,6 +165,7 @@ const { title } = Astro.props;
     }
   }
 
+<<<<<<< HEAD
 // スクロール挙動をリセット - シンプルな実装
 document.addEventListener('DOMContentLoaded', () => {
   // 既存のLenisインスタンスをクリーンアップ（型安全に）
@@ -164,8 +192,107 @@ document.addEventListener('DOMContentLoaded', () => {
   // スクロールイベントリスナーを追加（重複を避けるため一度だけ）
   window.removeEventListener('scroll', handleScroll);
   window.addEventListener('scroll', handleScroll, { passive: true });
+=======
+  // 現在のページがindex.astroかどうかを判定
+  const isIndexPage = window.location.pathname === '/';
 
-  // モバイルメニュー制御
+  // index.astroでのみヘッダーの初期化処理を実行
+  if (isIndexPage) {
+    let isHeaderInitialized = false;
+
+    // ヘッダーの初期化関数
+    function initializeHeader() {
+      const header = document.querySelector('header');
+      if (header && !isHeaderInitialized) {
+        // 基本スタイルを設定
+        header.style.position = 'fixed';
+        header.style.top = '0';
+        header.style.left = '0';
+        header.style.right = '0';
+        header.style.zIndex = '1000';
+        header.style.transition = 'all 0.4s cubic-bezier(0.4, 0, 0.2, 1)';
+        header.style.backgroundColor = 'rgba(255, 255, 255, 0.95)';
+        header.style.backdropFilter = 'blur(10px)';
+        (header.style as any).webkitBackdropFilter = 'blur(10px)';
+        header.style.boxShadow = '0 2px 20px rgba(0, 0, 0, 0.1)';
+        
+        // 非表示状態に設定
+        header.classList.add('header-hidden');
+        header.classList.remove('header-visible');
+        
+        isHeaderInitialized = true;
+      }
+    }
+
+    // ページ読み込み時の処理
+    document.addEventListener('DOMContentLoaded', initializeHeader);
+    
+    // より強制的な初期化（他のスタイルを上書き）
+    window.addEventListener('load', () => {
+      setTimeout(() => {
+        const header = document.querySelector('header');
+        if (header) {
+          // 全ての既存のスタイルを強制的に上書き
+          header.style.setProperty('opacity', '0', 'important');
+          header.style.setProperty('visibility', 'hidden', 'important');
+          header.style.setProperty('transform', 'translateY(-100%)', 'important');
+          header.style.setProperty('position', 'fixed', 'important');
+          header.classList.add('header-hidden');
+          header.classList.remove('header-visible');
+        }
+      }, 100);
+    });
+>>>>>>> 777de5525ab96230f86054e7e8a010cf75659d9c
+
+    // スクロール時の処理
+    let ticking = false;
+    function handleScroll() {
+      if (!ticking) {
+        requestAnimationFrame(() => {
+          const scrollTop = window.scrollY || 0;
+          document.documentElement.style.setProperty('--scroll-y', `${scrollTop}px`);
+
+          // ヘッダー表示制御 - idで特定
+          const header = document.getElementById('header-nav');
+          if (header) {
+            if (scrollTop > 200) { // 200pxスクロールしたら表示
+              header.style.setProperty('opacity', '1', 'important');
+              header.style.setProperty('visibility', 'visible', 'important');
+              header.style.setProperty('transform', 'translateY(0)', 'important');
+              header.classList.add('header-visible');
+              header.classList.remove('header-hidden');
+            } else {
+              header.style.setProperty('opacity', '0', 'important');
+              header.style.setProperty('visibility', 'hidden', 'important');
+              header.style.setProperty('transform', 'translateY(-100%)', 'important');
+              header.classList.add('header-hidden');
+              header.classList.remove('header-visible');
+            }
+          }
+
+          // チケットボタン表示制御
+          const reserveBtn = document.querySelector('.reserve-btn');
+          if (scrollTop > 50) {
+            reserveBtn?.classList.add('visible');
+          } else {
+            reserveBtn?.classList.remove('visible');
+          }
+
+          // 一度でもスクロールしたら visibility を visible に
+          if (document.documentElement.style.getPropertyValue('--visibility-on-scroll') !== 'visible') {
+            document.documentElement.style.setProperty('--visibility-on-scroll', 'visible');
+          }
+          
+          ticking = false;
+        });
+        ticking = true;
+      }
+    }
+
+    document.addEventListener('scroll', handleScroll, { passive: true });
+  }
+
+  // モバイルメニュー制御（全ページで共通）
   const mobileMenuButton = document.querySelector('.mobile-menu-button');
   const mobileMenu = document.querySelector('.mobile-menu');
 
@@ -209,7 +336,37 @@ document.addEventListener('DOMContentLoaded', () => {
 </script>
 
 <style>
+<<<<<<< HEAD
+=======
+  /* セリフフォントファミリーの定義 */
+  :root {
+    --font-serif: 'Noto Serif JP', serif;
+  }
 
+  /* 全体にセリフフォントを適用 */
+  body, html {
+    font-family: var(--font-serif), serif;
+  }
+
+  /* ヘッダー、メインコンテンツ、フッターなど全ての要素に適用 */
+  * {
+    font-family: var(--font-serif), serif;
+  }
+
+.reserve-btn {
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(10px);
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+.reserve-btn.visible {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translateY(0);
+}
+>>>>>>> 777de5525ab96230f86054e7e8a010cf75659d9c
+
+/* デバッグ用の境界線（本番では削除） */
 .sticky-section {
   border: 2px solid red;
 }
@@ -220,9 +377,45 @@ document.addEventListener('DOMContentLoaded', () => {
   border: 2px solid green;
 }
 
-/* ヘッダーのスタイル */
+/* ヘッダーのスタイル - クラスベースのアプローチ */
 header {
-  transition: background-color 0.3s ease;
+  position: fixed !important;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  background-color: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
+}
+
+/* 非表示状態 - 最高詳細度で強制適用（index.astroでのみ適用） */
+header.header-hidden {
+  opacity: 0 !important;
+  visibility: hidden !important;
+  transform: translateY(-100%) !important;
+}
+
+/* 表示状態 */
+header.header-visible {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+/* ダークテーマ対応 */
+@media (prefers-color-scheme: dark) {
+  header {
+    background-color: rgba(0, 0, 0, 0.95) !important;
+    box-shadow: 0 2px 20px rgba(255, 255, 255, 0.1);
+  }
+}
+
+/* メインコンテンツの調整 */
+main {
+  padding-top: 0;
 }
 
 /* モバイルメニューのアニメーション */
@@ -257,6 +450,10 @@ header {
     width: 100vw;
     overflow-x: hidden;
   }
+  
+  header {
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+  }
 }
-  z-index: 9999;
 </style>
